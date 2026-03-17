@@ -2,8 +2,8 @@ name: OCI Auto Retry
 
 on:
   schedule:
-    - cron: '*/10 * * * *'  # setiap 10 menit
-  workflow_dispatch:         # bisa dijalankan manual juga
+    - cron: '*/5 * * * *'
+  workflow_dispatch:
 
 jobs:
   retry:
