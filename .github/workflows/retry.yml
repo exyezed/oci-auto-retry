@@ -1,0 +1,34 @@
+name: OCI Auto Retry
+
+on:
+  schedule:
+    - cron: '*/10 * * * *'  # setiap 10 menit
+  workflow_dispatch:         # bisa dijalankan manual juga
+
+jobs:
+  retry:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Install OCI SDK
+        run: pip install oci
+
+      - name: Run retry script
+        env:
+          OCI_USER:           ${{ secrets.OCI_USER }}
+          OCI_FINGERPRINT:    ${{ secrets.OCI_FINGERPRINT }}
+          OCI_TENANCY:        ${{ secrets.OCI_TENANCY }}
+          OCI_REGION:         ${{ secrets.OCI_REGION }}
+          OCI_KEY_CONTENT:    ${{ secrets.OCI_KEY_CONTENT }}
+          OCI_COMPARTMENT_ID: ${{ secrets.OCI_COMPARTMENT_ID }}
+          OCI_SUBNET_ID:      ${{ secrets.OCI_SUBNET_ID }}
+          OCI_IMAGE_ID:       ${{ secrets.OCI_IMAGE_ID }}
+          OCI_AD:             ${{ secrets.OCI_AD }}
+          OCI_SSH_PUBLIC_KEY: ${{ secrets.OCI_SSH_PUBLIC_KEY }}
+        run: python retry_oci.py
