@@ -31,4 +31,5 @@ jobs:
           OCI_IMAGE_ID:       ${{ secrets.OCI_IMAGE_ID }}
           OCI_AD:             ${{ secrets.OCI_AD }}
           OCI_SSH_PUBLIC_KEY: ${{ secrets.OCI_SSH_PUBLIC_KEY }}
+          DISCORD_WEBHOOK:    ${{ secrets.DISCORD_WEBHOOK }}
         run: python retry_oci.py
